@@ -14,6 +14,7 @@
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
+  <a class="skip" href="#top">Skip to content</a>
   <!-- GOAL MOCK-UP ONLY. Do not publish. ‡ = not built or not measured yet. -->
   <div class="mock-banner"><b>Goal mock-up, not for publishing.</b> Items marked <span class="mark">‡</span> are not built or measured yet.</div>
   <nav class="nav">
@@ -32,21 +33,42 @@
   <main id="top">
     <header class="hero">
       <div class="wrap">
-        <div class="eyebrow">CS @ University of Waterloo · Class of 2028</div>
-        <h1>Hi, I'm Charlie.<br />I build systems that <span class="grad">hold up.</span></h1>
-        <p class="lead">Backend and distributed systems that stay correct under load, recover after crashes, and ship with numbers anyone can reproduce. Currently into <span class="typed" data-phrases='["checkout that never oversells","crash-safe data pipelines","demand forecasting for merchants"]'></span></p>
-        <div class="actions">
-          <a class="btn primary" href="https://github.com/CharlieNotChilly">GitHub</a>
-          <a class="btn" href="https://linkedin.com/in/charliezhangck">LinkedIn</a>
-          <a class="btn" href="mailto:c256zhan@uwaterloo.ca">Email</a>
+        <div class="hero-grid">
+          <div>
+            <div class="eyebrow">CS @ University of Waterloo · Class of 2028</div>
+            <h1>Hi, I'm Charlie.<br />I build systems that <span class="grad">hold up.</span></h1>
+            <p class="lead">Backend and distributed systems that stay correct under load, recover after crashes, and ship with numbers anyone can reproduce. Currently into <span class="typed" data-phrases='["cross-book arbitrage detection","checkout that never oversells","crash-safe data pipelines","demand forecasting for merchants"]'></span></p>
+            <div class="actions">
+              <a class="btn primary" href="https://github.com/CharlieNotChilly">GitHub</a>
+              <a class="btn" href="https://linkedin.com/in/charliezhangck">LinkedIn</a>
+              <a class="btn" href="mailto:c256zhan@uwaterloo.ca">Email</a>
+            </div>
+            <div class="pill"><span class="dot"></span>Open to Summer 2027 SWE internships</div>
+          </div>
+          <figure class="code-card" aria-label="Excerpt of Flashpoint's atomic reservation script">
+            <figcaption><span class="dots"><i></i><i></i><i></i></span>flashpoint/lib/lua/reserve.lua</figcaption>
+<pre><code><span class="c">-- One atomic call: check, deduct, hold.</span>
+<span class="k">local</span> replay = redis.call(<span class="s">"GET"</span>, KEYS[4])
+<span class="k">if</span> replay <span class="k">then return</span> replay <span class="k">end</span>
+
+<span class="k">if</span> tonumber(redis.call(<span class="s">"GET"</span>, stock_key) <span class="k">or</span> <span class="s">"0"</span>)
+   &lt; tonumber(qty) <span class="k">then</span>
+  redis.call(<span class="s">"SET"</span>, KEYS[4], <span class="s">"SOLD_OUT"</span>)
+  <span class="k">return</span> <span class="s">"SOLD_OUT"</span>
+<span class="k">end</span>
+
+redis.call(<span class="s">"DECRBY"</span>, stock_key, qty)
+redis.call(<span class="s">"ZADD"</span>, expiry_key, expires_at, hold_id)
+redis.call(<span class="s">"SET"</span>, KEYS[4], hold_id)
+<span class="k">return</span> hold_id</code></pre>
+          </figure>
         </div>
-        <div class="pill"><span class="dot"></span>Open to Summer 2027 SWE internships</div>
 
         <div class="stats">
           <div class="stat"><div class="num">0</div><div class="label">units oversold with 5,000 simultaneous buyers</div></div>
-          <div class="stat"><div class="num">1 order</div><div class="label">per confirmation, even after duplicate delivery</div></div>
+          <div class="stat"><div class="num">61%<span class="mark">‡</span></div><div class="label">of apparent arbitrages rejected as stale quotes</div></div>
+          <div class="stat"><div class="num">4,800<span class="mark">‡</span></div><div class="label">odds quotes/s through crash-safe ingestion</div></div>
           <div class="stat"><div class="num">−13.8%</div><div class="label">relative forecast error (WAPE) vs. baseline</div></div>
-          <div class="stat"><div class="num">8 h → 20 min</div><div class="label">proposal drafting with a generative-AI engine</div></div>
         </div>
       </div>
     </header>
@@ -77,6 +99,7 @@
               <li>Lead <b>6</b><span class="mark">‡</span> co-op developers in a <b>CEO-sponsored</b> initiative, partnering with UX design and engineering teams to take a <b>Grade Planner</b> and <b>Study Widgets</b> from proposal to production, on track for early 2027</li>
               <li>Shipped full-stack features for <b>D2L AI Training</b><span class="mark">‡</span> across <b>Lit</b> web components and <b>C#/.NET</b> APIs<span class="mark">‡</span>, backed by a <b>TypeScript/Playwright</b> suite of <b>120+</b><span class="mark">‡</span> E2E scenarios that cut regression time from <b>2 days to 25 minutes</b><span class="mark">‡</span></li>
             </ul>
+            <div class="chips job-chips"><span class="chip">Node.js</span><span class="chip">AWS Lambda</span><span class="chip">Bedrock</span><span class="chip">Terraform</span><span class="chip">Grafana</span><span class="chip">Lit</span><span class="chip">C#/.NET</span><span class="chip">TypeScript</span><span class="chip">Playwright</span></div>
           </article>
           <article class="job">
             <header>
@@ -90,6 +113,7 @@
               <li>Shipped a <b>prompt-to-kiosk service</b> (FastAPI, Jinja2, OpenAI JSON mode) that turns free-text trip requests into validated itineraries and offline slideshows running on in-store kiosks for <b>12</b><span class="mark">‡</span> destinations</li>
               <li>Automated hotel sourcing with an <b>async pipeline</b> (Python, asyncio, pandas) over Google Places and Distance Matrix APIs that enriches incomplete results and retries quota failures, cutting per-city research from <b>3 hours to 10 minutes</b><span class="mark">‡</span></li>
             </ul>
+                          <div class="chips job-chips"><span class="chip">Python</span><span class="chip">FastAPI</span><span class="chip">OpenAI</span><span class="chip">Pydantic</span><span class="chip">asyncio</span><span class="chip">ASP.NET</span><span class="chip">Entra ID / OIDC</span><span class="chip">SQL Server</span></div>
           </article>
         </div>
       </div>
@@ -103,6 +127,7 @@
           <article class="card">
             <span class="tag">Distributed systems</span>
             <h3>⚡ Flashpoint</h3>
+            <div class="metric"><span class="big">0</span> oversold across 5,000 simultaneous buyers</div>
             <p class="hook">A flash-sale checkout engine that never oversells.</p>
             <div class="chips"><span class="chip">Ruby on Rails</span><span class="chip">Redis Lua</span><span class="chip">Sidekiq</span><span class="chip">PostgreSQL</span><span class="chip">k6</span><span class="chip">Docker</span></div>
             <ul>
@@ -127,6 +152,7 @@ flowchart LR
           <article class="card">
             <span class="tag">Applied ML · Commerce</span>
             <h3>📦 Shelfwise</h3>
+            <div class="metric"><span class="big">−13.8%</span> relative forecast error across 500 SKUs</div>
             <p class="hook">Demand forecasting that warns Shopify merchants before a SKU runs out.</p>
             <div class="chips"><span class="chip">Ruby on Rails</span><span class="chip">Shopify GraphQL API</span><span class="chip">Polaris</span><span class="chip">Python</span><span class="chip">LightGBM</span><span class="chip">FastAPI</span></div>
             <ul>
@@ -149,16 +175,31 @@ flowchart LR
           </article>
 
           <article class="card">
-            <span class="tag">Data systems · Risk</span>
+            <span class="tag">Data systems · Arbitrage</span>
             <h3>📈 LineValue</h3>
-            <p class="hook">Real-time odds analytics with crash-safe ingestion and a leak-proof backtest.</p>
-            <div class="chips"><span class="chip">Python</span><span class="chip">asyncio</span><span class="chip">Redis Streams</span><span class="chip">PostgreSQL</span><span class="chip">React</span></div>
+            <div class="metric"><span class="big">340<span class="mark">‡</span></span> cross-book arbitrage windows detected</div>
+            <p class="hook">Real-time odds analytics that finds cross-book arbitrage and filters out the fake ones.</p>
+            <div class="chips"><span class="chip">Python</span><span class="chip">asyncio</span><span class="chip">Redis Streams</span><span class="chip">PostgreSQL</span><span class="chip">FastAPI</span><span class="chip">React</span></div>
             <ul>
+              <li><b>Arbitrage:</b> rechecks every updated game for cross-book arbitrage, with a median window lifetime of <b>47 s</b><span class="mark">‡</span>, rejecting <b>61%</b><span class="mark">‡</span> of apparent ones as stale quotes via a 60-second freshness rule</li>
               <li><b>Ingestion:</b> at-least-once Redis Streams consumers with idempotent upserts normalize odds from <b>28</b><span class="mark">‡</span> sportsbooks at <b>4,800</b><span class="mark">‡</span> quotes/s in replay and <b>45 ms</b><span class="mark">‡</span> p95</li>
-              <li><b>Serving:</b> de-vigged, leave-one-out pricing engine behind Redis-cached FastAPI at <b>38 ms</b><span class="mark">‡</span> p99 under 200 concurrent clients</li>
-              <li><b>Evaluation:</b> flagged prices beat the closing consensus <b>58%</b><span class="mark">‡</span> of the time vs. <b>49%</b><span class="mark">‡</span> for matched controls across <b>1,100</b><span class="mark">‡</span> events</li>
+              <li><b>Evaluation:</b> flagged prices beat the closing consensus <b>58%</b><span class="mark">‡</span> of the time vs. <b>49%</b><span class="mark">‡</span> for matched controls across <b>1,100</b><span class="mark">‡</span> events, served at <b>38 ms</b><span class="mark">‡</span> p99</li>
             </ul>
-            <div class="links"><a href="https://github.com/CharlieNotChilly/Line-Value/blob/main/docs/DESIGN.md">Design doc →</a></div>
+            <details>
+              <summary>How it works</summary>
+              <pre class="mermaid">
+flowchart LR
+  Odds[The Odds API] --> Poller[Async poller]
+  Poller -->|raw archive + XADD| Stream[(Redis Stream)]
+  Stream --> Norm[Normalizers x4]
+  Norm -->|idempotent upserts| PG[(PostgreSQL)]
+  Norm -->|best price per outcome, fresh legs only| Arb[Arbitrage scanner]
+  PG --> API[FastAPI + Redis cache]
+  Arb --> API
+  API --> UI[React dashboard]
+              </pre>
+            </details>
+            <div class="links"><a href="https://github.com/CharlieNotChilly/Line-Value">Code →</a><a href="https://github.com/CharlieNotChilly/Line-Value/blob/main/docs/DESIGN.md">Design doc →</a></div>
           </article>
         </div>
       </div>

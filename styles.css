@@ -139,6 +139,57 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
 }
 .mark { color: var(--warn); font-weight: 700; }
 
+/* Accessibility */
+.skip {
+  position: absolute; left: -999px; top: 8px; z-index: 50;
+  background: var(--accent); color: #0b0f17; padding: 8px 12px; border-radius: 8px; font-weight: 700;
+}
+.skip:focus { left: 12px; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 6px; }
+
+/* Active nav link */
+.nav ul a.active { color: var(--text); }
+.nav ul a.active::after {
+  content: ""; display: block; height: 2px; margin-top: 4px; border-radius: 2px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+}
+
+/* Two-column hero with a code window */
+.hero-grid { display: grid; grid-template-columns: 1.25fr 1fr; gap: 40px; align-items: center; }
+.code-card {
+  margin: 0; background: #0d1420; border: 1px solid var(--border); border-radius: var(--radius);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(88, 166, 255, 0.08);
+  overflow: hidden;
+}
+.code-card figcaption {
+  display: flex; align-items: center; gap: 12px; padding: 10px 14px;
+  border-bottom: 1px solid var(--border); color: var(--muted);
+  font-family: "Fira Code", ui-monospace, monospace; font-size: 12px;
+}
+.code-card .dots { display: inline-flex; gap: 6px; }
+.code-card .dots i { width: 10px; height: 10px; border-radius: 50%; background: #3a4458; display: block; }
+.code-card .dots i:nth-child(1) { background: #ff5f57; }
+.code-card .dots i:nth-child(2) { background: #febc2e; }
+.code-card .dots i:nth-child(3) { background: #28c840; }
+.code-card pre { margin: 0; padding: 16px 18px; overflow-x: auto; font-size: 12.5px; line-height: 1.65; color: #c9d1d9; }
+.code-card .k { color: #ff7b72; }
+.code-card .s { color: #a5d6ff; }
+.code-card .c { color: #8b949e; font-style: italic; }
+
+/* Headline metric on project cards */
+.metric { margin: 2px 0 10px; color: var(--muted); font-size: 14px; }
+.metric .big {
+  display: inline-block; margin-right: 6px; font-size: 26px; font-weight: 800; letter-spacing: -0.5px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.metric .big .mark { -webkit-text-fill-color: var(--warn); }
+.job-chips { margin: 14px 0 0; }
+
+@media (max-width: 900px) {
+  .hero-grid { grid-template-columns: 1fr; }
+}
+
 @media (max-width: 760px) {
   .nav ul { display: none; }
   .hero { padding: 64px 0 48px; }

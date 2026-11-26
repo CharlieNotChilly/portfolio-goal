@@ -31,3 +31,15 @@ if (typed && phrases.length) {
 document.querySelectorAll("[data-year]").forEach((el) => {
   el.textContent = new Date().getFullYear();
 });
+
+const navLinks = [...document.querySelectorAll(".nav ul a")];
+const sections = navLinks.map((a) => document.querySelector(a.getAttribute("href"))).filter(Boolean);
+if ("IntersectionObserver" in window && sections.length) {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      navLinks.forEach((a) => a.classList.toggle("active", a.getAttribute("href") === "#" + entry.target.id));
+    });
+  }, { rootMargin: "-45% 0px -50% 0px" });
+  sections.forEach((s) => observer.observe(s));
+}
