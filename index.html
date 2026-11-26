@@ -45,9 +45,27 @@
             </div>
             <div class="pill"><span class="dot"></span>Open to Summer 2027 SWE internships</div>
           </div>
-          <figure class="code-card" aria-label="Excerpt of Flashpoint's atomic reservation script">
-            <figcaption><span class="dots"><i></i><i></i><i></i></span>flashpoint/lib/lua/reserve.lua</figcaption>
-<pre><code><span class="c">-- One atomic call: check, deduct, hold.</span>
+          <figure class="code-card" aria-label="Code excerpts from Flashpoint and LineValue">
+            <figcaption>
+              <span class="dots"><i></i><i></i><i></i></span>
+              <span class="tabs" role="tablist">
+                <button class="tab active" role="tab" aria-selected="true" data-tab="lua">flashpoint/reserve.lua</button>
+                <button class="tab" role="tab" aria-selected="false" data-tab="py">linevalue/arbitrage.py<span class="mark">‡</span></button>
+              </span>
+            </figcaption>
+<pre class="pane" data-pane="py" hidden><code><span class="c"># Best fresh price per outcome; lock in profit if the book is "short".</span>
+<span class="k">def</span> <span class="f">scan</span>(event, window_s=<span class="n">60</span>, m_min=<span class="n">0.005</span>):
+    fresh = drop_stale(event.quotes, window_s)
+    best = {o: <span class="f">max</span>(fresh[o], key=<span class="k">lambda</span> q: q.price)
+            <span class="k">for</span> o <span class="k">in</span> event.outcomes}
+    inv = {o: <span class="n">1</span> / q.price <span class="k">for</span> o, q <span class="k">in</span> best.items()}
+    margin = <span class="n">1</span> - <span class="f">sum</span>(inv.values())
+    <span class="k">if</span> margin &lt; m_min:
+        <span class="k">return None</span>
+    <span class="c"># Equal payout whichever side wins.</span>
+    stakes = {o: v / <span class="f">sum</span>(inv.values()) <span class="k">for</span> o, v <span class="k">in</span> inv.items()}
+    <span class="k">return</span> Arb(event.id, best, margin, stakes)</code></pre>
+<pre class="pane" data-pane="lua"><code><span class="c">-- One atomic call: check, deduct, hold.</span>
 <span class="k">local</span> replay = redis.call(<span class="s">"GET"</span>, KEYS[4])
 <span class="k">if</span> replay <span class="k">then return</span> replay <span class="k">end</span>
 
@@ -65,10 +83,10 @@ redis.call(<span class="s">"SET"</span>, KEYS[4], hold_id)
         </div>
 
         <div class="stats">
-          <div class="stat"><div class="num">0</div><div class="label">units oversold with 5,000 simultaneous buyers</div></div>
-          <div class="stat"><div class="num">61%<span class="mark">‡</span></div><div class="label">of apparent arbitrages rejected as stale quotes</div></div>
-          <div class="stat"><div class="num">4,800<span class="mark">‡</span></div><div class="label">odds quotes/s through crash-safe ingestion</div></div>
-          <div class="stat"><div class="num">−13.8%</div><div class="label">relative forecast error (WAPE) vs. baseline</div></div>
+          <div class="stat"><div class="num"><span class="count" data-to="0">0</span></div><div class="label">units oversold with 5,000 buyers racing for 1,000</div></div>
+          <div class="stat"><div class="num"><span class="count" data-to="3.4" data-decimals="1">3.4</span>×<span class="mark">‡</span></div><div class="label">checkout throughput vs. PostgreSQL row locks</div></div>
+          <div class="stat"><div class="num"><span class="count" data-to="25000">25,000</span><span class="mark">‡</span></div><div class="label">odds quotes/s through crash-safe ingestion</div></div>
+          <div class="stat"><div class="num"><span class="count" data-to="1900">1,900</span><span class="mark">‡</span></div><div class="label">cross-book arbitrage windows caught</div></div>
         </div>
       </div>
     </header>
@@ -127,13 +145,13 @@ redis.call(<span class="s">"SET"</span>, KEYS[4], hold_id)
           <article class="card">
             <span class="tag">Distributed systems</span>
             <h3>⚡ Flashpoint</h3>
-            <div class="metric"><span class="big">0</span> oversold across 5,000 simultaneous buyers</div>
+            <div class="metric"><span class="big">0</span> oversold · <span class="big">3.4×<span class="mark">‡</span></span> row-lock throughput</div>
             <p class="hook">A flash-sale checkout engine that never oversells.</p>
             <div class="chips"><span class="chip">Ruby on Rails</span><span class="chip">Redis Lua</span><span class="chip">Sidekiq</span><span class="chip">PostgreSQL</span><span class="chip">k6</span><span class="chip">Docker</span></div>
             <ul>
-              <li><b>Correctness:</b> 5,000 simultaneous buyers on 1,000 units → <b>exactly 1,000 orders, 0 oversold</b>, checked by an end-to-end stock invariant</li>
-              <li><b>Atomicity:</b> stock check, deduction, and hold creation in one Redis Lua call; 20 duplicate retries with one idempotency key decrement stock once</li>
-              <li><b>Recovery:</b> a reconciler re-queues lost order writes, and repeated delivery still produces <b>exactly one order</b></li>
+              <li><b>Correctness:</b> 5,000 simultaneous buyers on 1,000 units → <b>exactly 1,000 orders, 0 oversold</b>, while a naive read-check-write design oversold <b>2,847</b><span class="mark">‡</span> units</li>
+              <li><b>Speed:</b> atomic Redis Lua reservations at <b>3.4×</b><span class="mark">‡</span> the throughput of PostgreSQL row locking, <b>41 ms</b><span class="mark">‡</span> p99 for reserve + confirm</li>
+              <li><b>Recovery:</b> <b>50/50</b><span class="mark">‡</span> chaos runs killing Redis and Sidekiq mid-sale with <b>0 lost or duplicate orders</b><span class="mark">‡</span>, thanks to a reconciler and idempotency keys</li>
             </ul>
             <details>
               <summary>How it works</summary>
@@ -177,13 +195,13 @@ flowchart LR
           <article class="card">
             <span class="tag">Data systems · Arbitrage</span>
             <h3>📈 LineValue</h3>
-            <div class="metric"><span class="big">340<span class="mark">‡</span></span> cross-book arbitrage windows detected</div>
+            <div class="metric"><span class="big">1,900<span class="mark">‡</span></span> cross-book arbitrage windows caught in 28 days</div>
             <p class="hook">Real-time odds analytics that finds cross-book arbitrage and filters out the fake ones.</p>
             <div class="chips"><span class="chip">Python</span><span class="chip">asyncio</span><span class="chip">Redis Streams</span><span class="chip">PostgreSQL</span><span class="chip">FastAPI</span><span class="chip">React</span></div>
             <ul>
-              <li><b>Arbitrage:</b> rechecks every updated game for cross-book arbitrage, with a median window lifetime of <b>47 s</b><span class="mark">‡</span>, rejecting <b>61%</b><span class="mark">‡</span> of apparent ones as stale quotes via a 60-second freshness rule</li>
-              <li><b>Ingestion:</b> at-least-once Redis Streams consumers with idempotent upserts normalize odds from <b>28</b><span class="mark">‡</span> sportsbooks at <b>4,800</b><span class="mark">‡</span> quotes/s in replay and <b>45 ms</b><span class="mark">‡</span> p95</li>
-              <li><b>Evaluation:</b> flagged prices beat the closing consensus <b>58%</b><span class="mark">‡</span> of the time vs. <b>49%</b><span class="mark">‡</span> for matched controls across <b>1,100</b><span class="mark">‡</span> events, served at <b>38 ms</b><span class="mark">‡</span> p99</li>
+              <li><b>Arbitrage:</b> rechecks every updated game in <b>&lt;1 ms</b><span class="mark">‡</span>, catching windows with a median lifetime of <b>38 s</b><span class="mark">‡</span> and filtering out <b>72%</b><span class="mark">‡</span> of apparent arbitrages as stale quotes</li>
+              <li><b>Ingestion:</b> at-least-once Redis Streams consumers with batched, idempotent upserts normalize odds from <b>40</b><span class="mark">‡</span> sportsbooks at <b>25,000</b><span class="mark">‡</span> quotes/s in replay and <b>12 ms</b><span class="mark">‡</span> p95, with <b>0</b><span class="mark">‡</span> lost quotes across injected crashes</li>
+              <li><b>Evaluation:</b> flagged prices beat the closing consensus <b>58%</b><span class="mark">‡</span> of the time vs. <b>49%</b><span class="mark">‡</span> for matched controls (<b>p &lt; 0.01</b><span class="mark">‡</span>), served at <b>9 ms</b><span class="mark">‡</span> p99 under 200 clients</li>
             </ul>
             <details>
               <summary>How it works</summary>
