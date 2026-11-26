@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>GOAL MOCK-UP · Charlie Zhang</title>
+  <meta name="robots" content="noindex" />
+  <meta name="description" content="Charlie Zhang: CS at the University of Waterloo. Backend and distributed systems: checkout that never oversells, demand forecasting, and reproducible results." />
+  <meta property="og:title" content="Charlie Zhang | Backend &amp; Distributed Systems" />
+  <meta property="og:description" content="CS @ UWaterloo. I build systems that stay correct under load, recover after crashes, and ship with numbers anyone can reproduce." />
+  <meta property="og:url" content="https://charlienotchilly.github.io/" />
+  <meta name="theme-color" content="#0b0f17" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- GOAL MOCK-UP ONLY. Do not publish. ‡ = not built or not measured yet. -->
+  <div class="mock-banner"><b>Goal mock-up, not for publishing.</b> Items marked <span class="mark">‡</span> are not built or measured yet.</div>
+  <nav class="nav">
+    <div class="wrap">
+      <a class="brand" href="#top">Charlie Zhang</a>
+      <ul>
+        <li><a href="#about">About</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main id="top">
+    <header class="hero">
+      <div class="wrap">
+        <div class="eyebrow">CS @ University of Waterloo · Class of 2028</div>
+        <h1>Hi, I'm Charlie.<br />I build systems that <span class="grad">hold up.</span></h1>
+        <p class="lead">Backend and distributed systems that stay correct under load, recover after crashes, and ship with numbers anyone can reproduce. Currently into <span class="typed" data-phrases='["checkout that never oversells","crash-safe data pipelines","demand forecasting for merchants"]'></span></p>
+        <div class="actions">
+          <a class="btn primary" href="https://github.com/CharlieNotChilly">GitHub</a>
+          <a class="btn" href="https://linkedin.com/in/charliezhangck">LinkedIn</a>
+          <a class="btn" href="mailto:c256zhan@uwaterloo.ca">Email</a>
+        </div>
+        <div class="pill"><span class="dot"></span>Open to Summer 2027 SWE internships</div>
+
+        <div class="stats">
+          <div class="stat"><div class="num">0</div><div class="label">units oversold with 5,000 simultaneous buyers</div></div>
+          <div class="stat"><div class="num">1 order</div><div class="label">per confirmation, even after duplicate delivery</div></div>
+          <div class="stat"><div class="num">−13.8%</div><div class="label">relative forecast error (WAPE) vs. baseline</div></div>
+          <div class="stat"><div class="num">8 h → 20 min</div><div class="label">proposal drafting with a generative-AI engine</div></div>
+        </div>
+      </div>
+    </header>
+
+    <section id="about">
+      <div class="wrap">
+        <h2>About</h2>
+        <p class="sub">I like the unglamorous parts of software.</p>
+        <p>I'm a third-year Computer Science student at the University of Waterloo. The problems I enjoy most are the ones where "it works on my machine" isn't enough: two buyers racing for the last unit, a worker crashing between a database commit and an acknowledgement, a model that looks great until you check for future-data leakage. I build things, measure them honestly, and write down what I learned, including when the first benchmark measured the wrong thing.</p>
+        <p>Outside of code I'm a powerlifter, which is mostly the same discipline: show up, track the numbers, and don't skip the boring sets.</p>
+      </div>
+    </section>
+
+    <section id="experience">
+      <div class="wrap">
+        <h2>Experience</h2>
+        <p class="sub">Where I've shipped.</p>
+        <div class="timeline">
+          <article class="job">
+            <header>
+              <div><h3>D2L</h3><div class="role">Software Developer Intern · Kitchener, ON</div></div>
+              <div class="when">Sep 2026 – Dec 2026</div>
+            </header>
+            <ul>
+              <li>Cut failed generations by <b>60%</b><span class="mark">‡</span> in an <b>LLM question-generation service</b> (Node.js, AWS Lambda, Bedrock) with per-item schema validation and partial-success handling<span class="mark">‡</span></li>
+              <li>Built a <b>CI prompt-evaluation gate</b> (Promptfoo, LLM-as-judge) over <b>221</b><span class="mark">‡</span> adversarial cases, blocking prompt-injection, data-leakage, and quality regressions before every release</li>
+              <li>Codified the service's AWS stack in <b>Terraform</b> and added <b>Grafana</b> dashboards and alerts on error rate and p95 latency, catching <b>3</b><span class="mark">‡</span> regressions before release</li>
+              <li>Lead <b>6</b><span class="mark">‡</span> co-op developers in a <b>CEO-sponsored</b> initiative, partnering with UX design and engineering teams to take a <b>Grade Planner</b> and <b>Study Widgets</b> from proposal to production, on track for early 2027</li>
+              <li>Shipped full-stack features for <b>D2L AI Training</b><span class="mark">‡</span> across <b>Lit</b> web components and <b>C#/.NET</b> APIs<span class="mark">‡</span>, backed by a <b>TypeScript/Playwright</b> suite of <b>120+</b><span class="mark">‡</span> E2E scenarios that cut regression time from <b>2 days to 25 minutes</b><span class="mark">‡</span></li>
+            </ul>
+          </article>
+          <article class="job">
+            <header>
+              <div><h3>The Traveller Inc.</h3><div class="role">Full Stack Software Engineer · Toronto, ON</div></div>
+              <div class="when">Sep 2025 – Apr 2026</div>
+            </header>
+            <ul>
+              <li>Built a <b>generative-AI proposal engine</b> (FastAPI, OpenAI, python-pptx) that turns client briefs into branded PowerPoint decks, cutting drafting from <b>8 hours to 20 minutes</b> across <b>300+</b><span class="mark">‡</span> client proposals</li>
+              <li>Raised schema-valid LLM output from <b>62% to 98%</b><span class="mark">‡</span> with Pydantic validation, field coercion, and a <b>self-review agent</b> that regenerates missing sections</li>
+              <li>Integrated <b>Microsoft Entra ID SSO</b> (OIDC) into a legacy ASP.NET order system used by <b>50+ staff</b>, mapping token claims onto existing roles and fixing SameSite cookie loss, cutting login support tickets by <b>90%</b><span class="mark">‡</span></li>
+              <li>Shipped a <b>prompt-to-kiosk service</b> (FastAPI, Jinja2, OpenAI JSON mode) that turns free-text trip requests into validated itineraries and offline slideshows running on in-store kiosks for <b>12</b><span class="mark">‡</span> destinations</li>
+              <li>Automated hotel sourcing with an <b>async pipeline</b> (Python, asyncio, pandas) over Google Places and Distance Matrix APIs that enriches incomplete results and retries quota failures, cutting per-city research from <b>3 hours to 10 minutes</b><span class="mark">‡</span></li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects">
+      <div class="wrap">
+        <h2>Projects</h2>
+        <p class="sub">Each repo has a spec, a design doc, and a <code>results/</code> folder. Every number traces to a file.</p>
+        <div class="grid">
+          <article class="card">
+            <span class="tag">Distributed systems</span>
+            <h3>⚡ Flashpoint</h3>
+            <p class="hook">A flash-sale checkout engine that never oversells.</p>
+            <div class="chips"><span class="chip">Ruby on Rails</span><span class="chip">Redis Lua</span><span class="chip">Sidekiq</span><span class="chip">PostgreSQL</span><span class="chip">k6</span><span class="chip">Docker</span></div>
+            <ul>
+              <li><b>Correctness:</b> 5,000 simultaneous buyers on 1,000 units → <b>exactly 1,000 orders, 0 oversold</b>, checked by an end-to-end stock invariant</li>
+              <li><b>Atomicity:</b> stock check, deduction, and hold creation in one Redis Lua call; 20 duplicate retries with one idempotency key decrement stock once</li>
+              <li><b>Recovery:</b> a reconciler re-queues lost order writes, and repeated delivery still produces <b>exactly one order</b></li>
+            </ul>
+            <details>
+              <summary>How it works</summary>
+              <pre class="mermaid">
+flowchart LR
+  Buyer[Buyer] --> API[Rails API]
+  API -->|reserve / confirm, one Lua call| Redis[(Redis, AOF)]
+  API -->|enqueue| Worker[Sidekiq writer]
+  Worker -->|insert once per hold| PG[(PostgreSQL)]
+  Sweeper[Sweeper] -->|expire holds, re-queue lost writes| Worker
+              </pre>
+            </details>
+            <div class="links"><a href="https://github.com/CharlieNotChilly/Flash-Point">Code →</a><a href="https://github.com/CharlieNotChilly/Flash-Point/tree/main/results">Results →</a></div>
+          </article>
+
+          <article class="card">
+            <span class="tag">Applied ML · Commerce</span>
+            <h3>📦 Shelfwise</h3>
+            <p class="hook">Demand forecasting that warns Shopify merchants before a SKU runs out.</p>
+            <div class="chips"><span class="chip">Ruby on Rails</span><span class="chip">Shopify GraphQL API</span><span class="chip">Polaris</span><span class="chip">Python</span><span class="chip">LightGBM</span><span class="chip">FastAPI</span></div>
+            <ul>
+              <li><b>Accuracy:</b> cut forecast error (WAPE) from <b>73.6% to 63.4%</b> vs. a 4-week moving average across 500 SKUs × 52 weeks</li>
+              <li><b>Rigor:</b> rolling-origin backtest with monthly refits, SKU ranking fixed before the test window, and no future-data leakage</li>
+              <li><b>Product:</b> embedded Shopify app<span class="mark">‡</span> that warns merchants before stockouts, demoed on a dev store with <b>1,000</b><span class="mark">‡</span> real orders</li>
+              <li><b>Integration:</b> GraphQL bulk operations and webhooks<span class="mark">‡</span> with a cost-aware client that stays within Shopify rate limits</li>
+            </ul>
+            <details>
+              <summary>How it works</summary>
+              <pre class="mermaid">
+flowchart LR
+  UCI[UCI Online Retail II] -->|clean + weekly units| Prep[Data prep]
+  Prep --> Backtest[Rolling-origin backtest]
+  Prep --> Train[Global LightGBM]
+  Train --> API[FastAPI forecaster]
+              </pre>
+            </details>
+            <div class="links"><a href="https://github.com/CharlieNotChilly/Shelfwise">Code →</a><a href="https://github.com/CharlieNotChilly/Shelfwise/tree/main/results">Results →</a></div>
+          </article>
+
+          <article class="card">
+            <span class="tag">Data systems · Risk</span>
+            <h3>📈 LineValue</h3>
+            <p class="hook">Real-time odds analytics with crash-safe ingestion and a leak-proof backtest.</p>
+            <div class="chips"><span class="chip">Python</span><span class="chip">asyncio</span><span class="chip">Redis Streams</span><span class="chip">PostgreSQL</span><span class="chip">React</span></div>
+            <ul>
+              <li><b>Ingestion:</b> at-least-once Redis Streams consumers with idempotent upserts normalize odds from <b>28</b><span class="mark">‡</span> sportsbooks at <b>4,800</b><span class="mark">‡</span> quotes/s in replay and <b>45 ms</b><span class="mark">‡</span> p95</li>
+              <li><b>Serving:</b> de-vigged, leave-one-out pricing engine behind Redis-cached FastAPI at <b>38 ms</b><span class="mark">‡</span> p99 under 200 concurrent clients</li>
+              <li><b>Evaluation:</b> flagged prices beat the closing consensus <b>58%</b><span class="mark">‡</span> of the time vs. <b>49%</b><span class="mark">‡</span> for matched controls across <b>1,100</b><span class="mark">‡</span> events</li>
+            </ul>
+            <div class="links"><a href="https://github.com/CharlieNotChilly/Line-Value/blob/main/docs/DESIGN.md">Design doc →</a></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="skills">
+      <div class="wrap">
+        <h2>Skills</h2>
+        <p class="sub">What I reach for.</p>
+        <div class="skills">
+          <div class="skillset"><h4>Languages</h4><div class="chips"><span class="chip">Python</span><span class="chip">TypeScript</span><span class="chip">JavaScript</span><span class="chip">Ruby</span><span class="chip">C#</span><span class="chip">C++</span><span class="chip">C</span><span class="chip">SQL</span></div></div>
+          <div class="skillset"><h4>Backend &amp; data</h4><div class="chips"><span class="chip">FastAPI</span><span class="chip">Ruby on Rails</span><span class="chip">Node.js</span><span class="chip">ASP.NET</span><span class="chip">PostgreSQL</span><span class="chip">Redis</span><span class="chip">Sidekiq</span><span class="chip">GraphQL<span class="mark">‡</span></span><span class="chip">SQL Server</span></div></div>
+          <div class="skillset"><h4>Infra &amp; testing</h4><div class="chips"><span class="chip">Docker</span><span class="chip">GitHub Actions</span><span class="chip">Terraform<span class="mark">‡</span></span><span class="chip">Grafana<span class="mark">‡</span></span><span class="chip">AWS Lambda<span class="mark">‡</span></span><span class="chip">k6</span><span class="chip">Playwright</span><span class="chip">Linux</span><span class="chip">Git</span></div></div>
+          <div class="skillset"><h4>ML &amp; AI</h4><div class="chips"><span class="chip">LightGBM</span><span class="chip">pandas</span><span class="chip">OpenAI API</span><span class="chip">Pydantic</span></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="wrap">
+        <h2>Let's talk</h2>
+        <p class="sub">Looking for a Summer 2027 SWE internship in backend, infrastructure, or commerce.</p>
+        <div class="actions">
+          <a class="btn primary" href="mailto:c256zhan@uwaterloo.ca">c256zhan@uwaterloo.ca</a>
+          <a class="btn" href="https://linkedin.com/in/charliezhangck">LinkedIn</a>
+          <a class="btn" href="https://github.com/CharlieNotChilly">GitHub</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <span>© <span data-year></span> Charlie Zhang</span>
+      <span>Hand-written HTML &amp; CSS · Hosted on GitHub Pages</span>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+  <script type="module">
+    import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";
+    mermaid.initialize({ startOnLoad: false, theme: "dark", securityLevel: "strict" });
+    // Diagrams inside closed <details> have no size yet, so render on first open.
+    document.querySelectorAll("details").forEach((d) => {
+      d.addEventListener("toggle", async () => {
+        const node = d.querySelector(".mermaid:not([data-processed])");
+        if (d.open && node) await mermaid.run({ nodes: [node] });
+      });
+    });
+  </script>
+</body>
+</html>
